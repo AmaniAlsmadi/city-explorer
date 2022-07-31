@@ -1,12 +1,19 @@
 
 import './App.css';
+import React from 'react';
+import Main from './component/main';
 
-function App() {
-  return (
-    <div className="App">
-     
-    </div>
-  );
+
+class App extends React.Component {
+
+
+  render() {
+    return (
+      <>
+      <Main/>
+      </>
+    );
+  }
 }
 
 export default App;
