@@ -1,0 +1,36 @@
+.form {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    margin-left: auto;
+      margin-right: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: rgb(193, 216, 193);
+    
+}
+
+.mb-3 {
+    display: grid;
+    padding: 12px 20px;
+    margin: 8px 10px;
+    font-size: 20px;
+}
+
+#control {
+    padding: 12px 20px;
+    margin: 15px 10px;
+}
+
+.button {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+    background-color: rgb(145, 184, 145);
+    font-size: 20px;
+    padding: 5px 10px;
+   
+
+}

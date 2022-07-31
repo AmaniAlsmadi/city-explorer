@@ -24,12 +24,23 @@
 
 # Timeline
 
-Name of feature: ________________________________
+Name of feature: Set up your React repository & API keys.
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 3 hours
+Start time: 1:30 pm
 
-Start time: _____
+Finish time: 3:30 pm
 
-Finish time: _____
+Actual time needed to complete: 2 hours
 
-Actual time needed to complete: _____
+
+<br
+
+Name of feature: Locations
+
+Estimate of time needed to complete: 2 hours
+Start time: 3:30 pm
+
+Finish time: 
+
+Actual time needed to complete: 
