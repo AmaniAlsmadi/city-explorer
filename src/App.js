@@ -6,6 +6,7 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Map from './component/map';
+import Weather from './weather';
 
 
 class App extends React.Component {
@@ -19,7 +20,8 @@ class App extends React.Component {
       longitude: '',
       errorMessage: '',
       displayError: false,
-      weather: []
+      weatherData: [],
+      isWeather: false
     }
   }
 
@@ -27,10 +29,10 @@ class App extends React.Component {
     e.preventDefault();
     const allCity = await axios.get(`https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_CITY_KEY}&q=${e.target.control.value}&format=json`);
 
-    const cityName = e.target.control.value;
-    console.log(cityName);
-    try {
+    const searchQuery = e.target.control.value;
+    console.log(searchQuery);
 
+    try {
       console.log(allCity);
       this.setState({
         userInput: e.target.control.value,
@@ -39,8 +41,9 @@ class App extends React.Component {
         latitude: allCity.data[0].lat,
         longitude: allCity.data[0].lon,
         displayError: false,
-       
       });
+
+      this.displayWeather(searchQuery ,allCity.data[0].lat, allCity.data[0].lon)
     }
 
     catch (error) {
@@ -54,30 +57,31 @@ class App extends React.Component {
       })
     }
 
-    //this.displayWeather(allCity.data[0].lat, allCity.data[0].lon, cityName)
+    
   }
 
-  displayWeather = async (lat, lon, cityName) => {
-    const weatherData = await axios.get('http://lacalhost:3001/weather', { params: { latitude: lat, longitude: lon, searchQuery: cityName } })
-    //new way to passing .. we can use ?$ after url
-    const weather = await axios.get(weatherData.data)
-    console.log(weather);
+  displayWeather = async (searchQuery,lat, lon) => {
+    const weatherData = await axios.get(`http://localhost:3001/weather?searchQuery=${searchQuery}&lat=${lat}&lon=${lon}`)
+    //const weather = await axios.get(weatherData.data)
+    console.log(weatherData);
     try {
       this.setState({
-        weather: weatherData.data,
-        displayError: false
+        isWeather: true,
+        weatherData: weatherData.data
     
       })
     } catch (error) {
       this.setState({
         display_name: '',
-        displayError: true,
-        errorMessage: error.response.status + ':' + error.response.data.error
+        errorMessage: error.response.status + ':' + error.response.data.error,
+        isWeather: false
       })
 
     }
 
   }
+
+
   render() {
     return (
       <div>
@@ -114,23 +118,16 @@ class App extends React.Component {
               map_src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_CITY_KEY}&center=${this.state.latitude},${this.state.longitude}&zoom=10`}
               city={this.state.display_name}
             />
-            < weather weather={this.state.weather} />
-          </div>
+
+          
+            </div>
         }
-
-        {
-          this.state.displayWeather &&
-              <>
-                <h2> City Name:{this.state.weather.city_name}</h2>
-                <p> City longitude: {this.state.weather.lon}</p>
-                <p>City latitude: {this.state.weather.lat}</p>
-
-              </>
-
-
-        } 
-
+        
+           {  this.state.isWeather &&
+            < Weather weather={this.state.weatherData} />
+            }
       </div>
+
     );
   }
 }
