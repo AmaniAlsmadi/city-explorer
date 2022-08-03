@@ -61,7 +61,7 @@ class App extends React.Component {
   }
 
   displayWeather = async (searchQuery,lat, lon) => {
-    const weatherData = await axios.get(`http://localhost:3001/weather?searchQuery=${searchQuery}&lat=${lat}&lon=${lon}`)
+    const weatherData = await axios.get(`https://cityexplorer-backend.herokuapp.com/weather?searchQuery=${searchQuery}&lat=${lat}&lon=${lon}`)
     //const weather = await axios.get(weatherData.data)
     console.log(weatherData);
     try {
