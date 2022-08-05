@@ -6,8 +6,8 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Map from './component/map';
-import Weather from './weather';
-
+import Weather from './component/weather';
+import Movie from './component/movie';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,7 +21,9 @@ class App extends React.Component {
       errorMessage: '',
       displayError: false,
       weatherData: [],
-      isWeather: false
+      isWeather: false,
+      movie: [],
+      isMovie: false
     }
   }
 
@@ -43,7 +45,8 @@ class App extends React.Component {
         displayError: false,
       });
 
-      this.displayWeather(searchQuery ,allCity.data[0].lat, allCity.data[0].lon)
+      this.displayWeather(searchQuery, allCity.data[0].lat, allCity.data[0].lon)
+      this.displayMovie(searchQuery)
     }
 
     catch (error) {
@@ -57,30 +60,49 @@ class App extends React.Component {
       })
     }
 
-    
+
   }
 
-  displayWeather = async (searchQuery,lat, lon) => {
-    const weatherData = await axios.get(`https://cityexplorer-backend.herokuapp.com/weather?searchQuery=${searchQuery}&lat=${lat}&lon=${lon}`)
-    //const weather = await axios.get(weatherData.data)
-    console.log(weatherData);
+  displayWeather = async (searchQuery, lat, lon) => {
+     const weatherData = await axios.get(`https://cityexplorer-backend.herokuapp.com/weather?searchQuery=${searchQuery}&lat=${lat}&lon=${lon}`)
+      console.log(weatherData);
     try {
       this.setState({
         isWeather: true,
         weatherData: weatherData.data
-    
+
       })
     } catch (error) {
       this.setState({
         display_name: '',
         errorMessage: error.response.status + ':' + error.response.data.error,
-        isWeather: false
+        isWeather: false,
+        displayError: true
       })
 
     }
 
   }
+  displayMovie = async (searchQuery) => {
+      const movieData = await axios.get(`https://cityexplorer-backend.herokuapp.com/movies?searchQuery=${searchQuery}`)
+      console.log(movieData);
+    try {
+      this.setState({
+        isMovie: true,
+        movie: movieData.data
+      })
 
+    } catch (error) {
+      this.setState({
+        errorMessage: error.response.status + ':' + error.response.data.error,
+        displayError: true,
+        isMovie: false
+      })
+
+
+
+    }
+  }
 
   render() {
     return (
@@ -119,13 +141,17 @@ class App extends React.Component {
               city={this.state.display_name}
             />
 
-          
-            </div>
+
+          </div>
         }
-        
-           {  this.state.isWeather &&
-            < Weather weather={this.state.weatherData} />
-            }
+
+        {this.state.isWeather &&
+          < Weather weather={this.state.weatherData} />
+        }
+
+        {this.state.isMovie &&
+          <Movie movie={this.state.movie} />
+        }
       </div>
 
     );
