@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Map from './component/map';
 import Weather from './component/weather';
-import Movie from './component/movie';
+import Movie from './component/movies';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class App extends React.Component {
       longitude: '',
       errorMessage: '',
       displayError: false,
-      weatherData: [],
+      weather: [],
       isWeather: false,
       movie: [],
       isMovie: false
@@ -64,12 +64,12 @@ class App extends React.Component {
   }
   //https://cityexplorer-backend.herokuapp.com/
   displayWeather = async (searchQuery, lat, lon) => {
-     const weatherData = await axios.get(`https://cityexplorer-backend.herokuapp.com/weather?searchQuery=${searchQuery}&lat=${lat}&lon=${lon}`)
-      console.log(weatherData);
+     const weatherData = await axios.get(`http://localhost:3001/weather?lat=${lat}&lon=${lon}`)
+      console.log(weatherData.data);
     try {
       this.setState({
         isWeather: true,
-        weatherData: weatherData.data
+        weather: weatherData.data
 
       })
     } catch (error) {
@@ -80,12 +80,12 @@ class App extends React.Component {
         displayError: true
       })
 
-    }
+    }}
 
-  }
+  
   displayMovie = async (searchQuery) => {
-      const movieData = await axios.get(`https://cityexplorer-backend.herokuapp.com/movies?query=${searchQuery}`)
-      console.log(movieData);
+      const movieData = await axios.get(`http://localhost:3001/movies?query=${searchQuery}`)
+      console.log(movieData.data);
     try {
       this.setState({
         isMovie: true,
@@ -146,7 +146,7 @@ class App extends React.Component {
         }
 
         {this.state.isWeather &&
-          < Weather weather={this.state.weatherData} />
+          < Weather weather={this.state.weather} />
         }
 
         {this.state.isMovie &&
