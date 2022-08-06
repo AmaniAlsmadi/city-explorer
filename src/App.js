@@ -64,7 +64,7 @@ class App extends React.Component {
   }
   //https://cityexplorer-backend.herokuapp.com/
   displayWeather = async (searchQuery, lat, lon) => {
-     const weatherData = await axios.get(`http://localhost:3001/weather?lat=${lat}&lon=${lon}`)
+     const weatherData = await axios.get(`https://cityexplorer-backend.herokuapp.com/weather?lat=${lat}&lon=${lon}`)
       console.log(weatherData.data);
     try {
       this.setState({
@@ -84,7 +84,7 @@ class App extends React.Component {
 
   
   displayMovie = async (searchQuery) => {
-      const movieData = await axios.get(`http://localhost:3001/movies?query=${searchQuery}`)
+      const movieData = await axios.get(`https://cityexplorer-backend.herokuapp.com/movies?query=${searchQuery}`)
       console.log(movieData.data);
     try {
       this.setState({
