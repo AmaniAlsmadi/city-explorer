@@ -46,7 +46,7 @@ class App extends React.Component {
       });
 
       this.displayWeather(searchQuery, allCity.data[0].lat, allCity.data[0].lon)
-      this.displayMovie(searchQuery)
+      this.displayMovie(searchQuery,allCity.data[0].lat, allCity.data[0].lon)
     }
 
     catch (error) {
@@ -62,7 +62,7 @@ class App extends React.Component {
 
 
   }
-
+  //https://cityexplorer-backend.herokuapp.com/
   displayWeather = async (searchQuery, lat, lon) => {
      const weatherData = await axios.get(`https://cityexplorer-backend.herokuapp.com/weather?searchQuery=${searchQuery}&lat=${lat}&lon=${lon}`)
       console.log(weatherData);
@@ -84,7 +84,7 @@ class App extends React.Component {
 
   }
   displayMovie = async (searchQuery) => {
-      const movieData = await axios.get(`https://cityexplorer-backend.herokuapp.com/movies?searchQuery=${searchQuery}`)
+      const movieData = await axios.get(`https://cityexplorer-backend.herokuapp.com/movies?query=${searchQuery}`)
       console.log(movieData);
     try {
       this.setState({

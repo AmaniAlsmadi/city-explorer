@@ -8,8 +8,8 @@ class Weather extends Component {
                     this.props.weather.map((item, idx) => {
                         return (
                             <li key={idx}>
-                                <p> {item.date} </p>
-                                <p>{item.description}</p>
+                                <p>Date: {item.date} </p>
+                                <p>Description: {item.description}</p>
                             </li>
                         )
                     })
