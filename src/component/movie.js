@@ -11,7 +11,7 @@ class Movie extends Component {
                                 <p>{item.overview}</p>
                                 <p>{item.average_votes}</p>
                                 <p>{item.total_votes}</p>
-                                <p>{item.image_url}</p>
+                                <img src={item.image_url} alt='a'/>
                                 <p>{item.popularity}</p>
                                 <p>{item.released_on}</p>
                             </li>
