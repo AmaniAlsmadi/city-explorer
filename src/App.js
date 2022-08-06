@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Map from './component/map';
 import Weather from './component/weather';
-import Movie from './component/movie';
+import Movie from './component/movies';
 
 class App extends React.Component {
   constructor(props) {
